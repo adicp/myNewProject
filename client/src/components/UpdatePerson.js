@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import PersonForm from '../components/PersonForm';
+import Form from '../components/Form';
 
 
 const UpdatePerson = (props) => {
@@ -9,6 +9,7 @@ const UpdatePerson = (props) => {
     const { id } = useParams();
     const [person, setPerson] = useState({});
     const [loaded, setLoaded] = useState(false);
+    // const navigate = useNavigate();
     
     useEffect(() => {
         axios.get('http://localhost:8000/api/' + id)
@@ -20,13 +21,14 @@ const UpdatePerson = (props) => {
     const updatePerson = personParam => {
         axios.put('http://localhost:8000/api/edit/' + id, personParam)
             .then(res => console.log(res));
+            navigate("/api");
     }
     
     return (
         <div>
         <h1>Update a Person</h1>
         {
-        loaded && <PersonForm onSubmitProp={updatePerson} initialFirstName={person.firstName}
+        loaded && <Form onSubmitProp={updatePerson} initialFirstName={person.firstName}
         initialLastName={person.lastName}
         />
         }

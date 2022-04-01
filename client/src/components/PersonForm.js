@@ -1,25 +1,38 @@
 import React, {useState} from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Form from './Form';
 
-const Form = (props) => {
-    const { initialFirstName, initialLastName, onSubmitProp, formTittle } = props;
+
+const PersonForm = (props) => {
+    const { initialFirstName, initialLastName, onSubmitProp} = props;
     const [firstName, setFirstName] = useState(initialFirstName);
     const [lastName, setLastName] = useState(initialLastName);
-    const [formTitle, setFormTittle] = useState(formTittle);
-    console.log(formTittle);
+    const formTittle = "Create a Person";
+    const { id } = useParams();
+    console.log("not showing person form y/n")
+    // const [person, setPerson] = useState({});
+    // const [loaded, setLoaded] = useState(false);
+    // const navigate = useNavigate();
+    
+    // useEffect(() => {
+    //     axios.get('http://localhost:8000/api/' + id)
+    //         .then(res => {
+    //             setPerson(res.data);
+    //             setLoaded(true);
+    //         });
+    // }, [])
 
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        onSubmitProp ({firstName, lastName});
+    const createPerson = (personParams) => {
+        axios.post('http://localhost:8000/api', personParams)
+        .then(res => console.log(res));
     }
 
     return (
-        <form onSubmit={onSubmitHandler}>
-            <h1>{formTitle}</h1>
-            <label>FirstName: <input type= "text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/></label>
-            <label>LastName: <input type= "text" value={lastName} onChange={(e) => setLastName(e.target.value)}/></label> 
-            <input type="submit" />
-        </form>
+
+        <Form onSubmitProp = {createPerson} firstName="" lastName=""/>
+
     )
 }
 
-export default Form;
+export default PersonForm;

@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 // import axios from 'axios';
 import Main from './views/Main'
+// import Update from './components/Update';
 import UpdatePerson from './components/UpdatePerson';
 
 function App() {

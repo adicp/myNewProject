@@ -3,9 +3,11 @@ import axios from 'axios';
 import PersonForm from '../components/PersonForm'
 import AllPeople from '../components/AllPeople';
 
+
 const Main = () => {
 
     const [personList, setPersonList] = useState([]);
+    
 
     useEffect(() => {
         axios.get('http://localhost:8000/api')
@@ -41,7 +43,7 @@ const Main = () => {
 
     return(
         <div>
-            <PersonForm onSubmitProp = {createPerson} firstName="" lastName = "" formTittle="Create a person"/>
+            <PersonForm />
             <AllPeople personList={personList} removeFromDom= {removeFromDom}/>
         </div>
     );
