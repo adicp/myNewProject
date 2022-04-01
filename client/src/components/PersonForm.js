@@ -1,46 +1,25 @@
-import React, { useState } from 'react'
-import axios from 'axios';
-const PersonForm = () => {
-    //keep track of what is being typed via useState hook
-    const [firstName, setFirstName] = useState(""); 
-    const [lastName, setLastName] = useState("");
-    //handler when the form is submitted
-    const onSubmitHandler = (e) => {
-        //prevent default behavior of the submit
-        e.preventDefault();
-        //make a post request to create a new person
-        axios.post('http://localhost:8000/api/people', {
-            firstName,    
-            
-            lastName 
-        })
-            .then(res=>{
-                console.log(res); 
-                console.log(res.data);}
-            )
-            .catch(err=>console.log(err))
+import React, {useState} from 'react';
 
-            // setFirstName("");
-            // setLastName("");
+const Form = (props) => {
+    const { initialFirstName, initialLastName, onSubmitProp, formTittle } = props;
+    const [firstName, setFirstName] = useState(initialFirstName);
+    const [lastName, setLastName] = useState(initialLastName);
+    const [formTitle, setFormTittle] = useState(formTittle);
+    console.log(formTittle);
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        onSubmitProp ({firstName, lastName});
     }
-    
+
     return (
         <form onSubmit={onSubmitHandler}>
-            <p>
-                <label>First Name</label><br/>
-                    {/* When the user types in this input, our onChange synthetic event 
-                    runs this arrow function, setting that event's target's (input) 
-                    value (what's typed into the input) to our updated state   */}
-                <input type="text" onChange = {(e)=>setFirstName(e.target.value)}/> 
-                {/* value = { firstName } */}
-            </p>
-            <p>
-                <label>Last Name</label><br/>
-                <input type="text" onChange = {(e)=>setLastName(e.target.value)}/>
-                {/* value = { firstName } */}
-            </p>
-            <input type="submit"/>
+            <h1>{formTitle}</h1>
+            <label>FirstName: <input type= "text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/></label>
+            <label>LastName: <input type= "text" value={lastName} onChange={(e) => setLastName(e.target.value)}/></label> 
+            <input type="submit" />
         </form>
     )
 }
-export default PersonForm;
+
+export default Form;

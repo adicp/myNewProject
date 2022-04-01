@@ -1,11 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import PersonForm from './components/PersonForm';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+// import axios from 'axios';
+import Main from './views/Main'
+import UpdatePerson from './components/UpdatePerson';
 
 function App() {
   return (
     <div className="App">
-      <PersonForm />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Main />} path= "/api" />
+          <Route element={<UpdatePerson/>} path="/api/edit/:id" />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
