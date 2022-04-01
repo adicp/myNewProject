@@ -1,4 +1,4 @@
-const Person = require('../models/person.model');
+const Player = require('../models/player.model');
 
 // module.exports.index = (request, response) => {  //We are exporting a key:val pair of index : function
 //     response.json({     // This is where we're setting the API's response to the requesting client
@@ -6,23 +6,21 @@ const Person = require('../models/person.model');
 //     });
 // };
           /* The method below is new */
-module.exports.createPerson = (request, response) => {
-
-    Person.create(request.body) 
-        .then(person => response.json(person))
+module.exports.createPlayer = (request, response) => {
+    Player.create(request.body) 
+        .then(player => response.json(player))
         .catch(err => response.json(err));
 }
 
-module.exports.getAllPeople = (request, response) => {
-    
-    Person.find ({})
-        .then (allPeople => response.json(allPeople))
+module.exports.getAllPlayers = (request, response) => {
+    Player.find ({})
+        .then (allPlayers => response.json(allPlayers))
         .catch (err => response.json(err));
 }
 
-module.exports.deleteEachPerson = (request, response) => {
+module.exports.deleteEachPlayer = (request, response) => {
     console.log("Entered delete");
-    Person.deleteOne({ _id: request.params.id})
+    Player.deleteOne({ _id: request.params.id})
         .then(deleteConfirmation => {
             response.json(deleteConfirmation);
             console.log(deleteConfirmation);
@@ -30,19 +28,19 @@ module.exports.deleteEachPerson = (request, response) => {
         })
         .catch(err => response.json(err))
 }
-module.exports.getEachPerson = (request, response) => {
+module.exports.getEachPlayer = (request, response) => {
     console.log(request.params.id);
     console.log("entered geteach");
-    Person.findOne({_id:request.params.id})
+    Player.findOne({_id:request.params.id})
         .then(product => response.json(product))
         .catch(err => response.json(err))
 }
 
-module.exports.updateEachPerson = (request, response) => {
+module.exports.updateEachPlayer = (request, response) => {
     console.log("entered update");
     console.log(request.body);
     console.log(request.params.id);
-    Person.findOneAndUpdate({_id:request.params.id}, request.body, {new:true})
-    .then(updatedProduct => response.json(updatedProduct))
+    Player.findOneAndUpdate({_id:request.params.id}, request.body, {new:true})
+    .then(updatedPlayer => response.json(updatedPlayer))
     .catch(err => response.json(err))
 }
